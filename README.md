@@ -1,2 +1,1 @@
-# neural-network-from-scratch
-Neural network without TensorFlow or PyTorch
+# Neural Network from scratch (no TensorFlow or PyTorch)
