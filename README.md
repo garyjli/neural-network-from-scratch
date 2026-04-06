@@ -1,1 +1,3 @@
-## Neural Network from scratch (no Tensorflow or Pytorch)
+## Neural network from scratch (no Tensorflow or Pytorch)
+
+### Notes:
