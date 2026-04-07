@@ -17,4 +17,4 @@
 
 ### Training:
 - Forward propagation: Take an image, run it through the network, compute output
-- $A^{[0]}=$Input layer matrix
+- $A^{[0]}$ = Input layer matrix
