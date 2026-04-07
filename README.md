@@ -6,9 +6,9 @@
 - Each (grayscale) pixel is just a value between 0-255 inclusive (0 = black, 255 = white)
 - We can represent $m$ images (each 784 pixels) as one matrix:
   - Each row is 784 columns long
-  - Each row represents the pixel values of 1 image
+  - Each row represents the pixel values of one image
 - Take the transpose of this matrix:
-  - Now each column represents the pixel values of 1 image
+  - Now each column represents the pixel values of one image
 
 ### Terminology:
 - Node = neuron = holds a numerical value (in this case a grayscale value)
@@ -23,8 +23,8 @@
 ### Math & Training:
 - Let $A^{[0]}$ = Input layer matrix (784 x $m$)
 - Let $Z^{[1]}$ = Hidden layer matrix (10 x $m$)
-- $Z^{[1]} = w^{[1]} A^{[0]} + b^{[1]}$
+- Then: $Z^{[1]} = w^{[1]} A^{[0]} + b^{[1]}$
   - $w^{[1]}$ = 10 x 784 matrix
-  - $b^{[1]}$ = 10 x $m$ matrix
+  - $b^{[1]}$ = 10 x 1 matrix
 - Let $A^{[1]}$ = Output layer matrix
 - Forward propagation: Take image, run through network, compute output
