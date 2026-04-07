@@ -27,4 +27,6 @@
   - $w^{[1]}$ = 10 x 784 matrix
   - $b^{[1]}$ = 10 x 1 matrix
 - Let $A^{[1]}$ = Output layer matrix
+- Apply an activation function (like tanh, sigmoid) to $Z^{[1]}$
+  - Then: $A^{[1]} = g(Z^{[1]}) = ReLU(Z^{[1]})$
 - Forward propagation: Take image, run through network, compute output
