@@ -4,7 +4,7 @@
 - Images are from the MNIST database
 - Each image is 784 pixels (28 x 28)
 - Each (grayscale) pixel is just a value between 0-255 inclusive (0 = black, 255 = white)
-- We can represent $m$ images (each 784 pixels) as a matrix:
+- We can represent $m$ images (each 784 pixels) as one matrix:
   - Each row is 784 columns long
   - Each row represents the pixel values of 1 image
 - Take the transpose of this matrix:
@@ -21,7 +21,10 @@
 - (2nd) Output layer: 10 nodes (each corresponding to a number 0-9)
 
 ### Math & Training:
-- Let $A^{[0]}$ = Input layer matrix ($784 x m$)
-- Let $Z^{[1]}$ = Hidden layer matrix ($10 x m$)
+- Let $A^{[0]}$ = Input layer matrix (784 x $m$)
+- Let $Z^{[1]}$ = Hidden layer matrix (10 x $m$)
+- $Z^{[1]} = w^{[1]} A^{[0]} + b^{[1]}$
+  - $w^{[1]}$ = 10 x 784 matrix
+  - $b^{[1]}$ = 10 x $m$ matrix
 - Let $A^{[1]}$ = Output layer matrix
 - Forward propagation: Take image, run through network, compute output
