@@ -20,6 +20,7 @@
 - Each neuron in a successive layer is "connected" to all neurons in the previous layer
   - In other words, every neuron in layer $L$ receives input from every neuron in layer $L - 1$
   - Thus each neuron has one weight per input neuron and one bias
+  - Each connection has a "weight" associated with it
 - Example: The activation of a particular node in the 1st layer is calculated by applying a (nonlinear) activation function to a linear combination of weights $\times$ activation values (plus a bias value) from the 0th layer
   - Example: $g(w_{1}a_{1} + w_{2}a_{2} + \cdots + w_{n}a_{n} + b)$
 
@@ -30,17 +31,27 @@
 - Let $Z^{[1]}$ = matrix of all "pre-activations" of our 1st layer (10 x $m$)
 - Specifically: $Z^{[1]} = W^{[1]} A^{[0]} + b^{[1]}$
   - $W^{[1]}$ = 10 x 784 matrix
-    - 10 rows $\rightarrow$ each row consists of the weights of all of the connections between the 0th layer and a particular neuron in the 1st layer
-    - 784 columns $\rightarrow$ each neuron in the 1st layer has 784 incoming weights
+    - 10 rows $\rightarrow$ each row consists of 784 weights of all the connections between the 0th layer and a particular neuron in the 1st layer
     - These weights are shared across all different input images
   - $b^{[1]}$ = 10 x 1 vector
-    - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron
+    - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron in the 1st layer
     - This bias is shared across all different input images
 - Let $A^{[1]}$ = matrix of all activations of our 1st layer (10 x $m$)
   - 10 rows $\rightarrow$ one activation per neuron
   - $m$ columns $\rightarrow$ one per input image
   - This matrix is achieved by applying an activation function (e.g. tanh, sigmoid, ReLU) to $Z^{[1]}$
     - $A^{[1]} = g(Z^{[1]})$
+- Let $Z^{[2]}$ = matrix of all "pre-activations" of our 2nd layer (10 x $m$)
+- Specifically: $Z^{[2]} = W^{[2]} A^{[1]} + b^{[2]}$
+  - $W^{[2]}$ = 10 x 10 matrix
+    - 10 rows $\rightarrow$ each row consists of 10 weights of all the connections between the 1st layer and a particular neuron in the 2nd layer
+  - $b^{[2]}$ = 10 x 1 vector
+    - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron in the 2nd layer
+- Let $A^{[2]}$ = matrix of probability distributions (10 x $m$)
+  - 10 rows $\rightarrow$ one probability per each of our 10 classes (digits 0-9)
+  - $m$ columns $\rightarrow$ one distribution per input image
+  - This matrix is achieved by applying a softmax function to $Z^{[2]}$
+    - $A^{[2]} = $ softmax $(Z^{[2]})$
 
 ## Training:
 - Forward propagation: Take image, run through network, compute output
