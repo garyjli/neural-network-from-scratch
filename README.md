@@ -20,8 +20,8 @@
 - Each neuron in a successive layer is "connected" to all neurons in the previous layer
   - In other words, every neuron in layer $L$ receives input from every neuron in layer $L - 1$
   - Thus each neuron has one weight per input neuron and one bias
-- Example: The activation of a node in layer 1 is calculated by applying a (nonlinear) activation function to a linear combination of weights $\times$ activation values (plus a bias value) from layer 0
-  - Something like: $g(w_{1}a_{1} + w_{2}a_{2} + \cdots + w_{n}a_{n} + b)$
+- Example: The activation of a particular node in the 1st layer is calculated by applying a (nonlinear) activation function to a linear combination of weights $\times$ activation values (plus a bias value) from the 0th layer
+  - Example: $g(w_{1}a_{1} + w_{2}a_{2} + \cdots + w_{n}a_{n} + b)$
 
 ## Math:
 - Let $A^{[0]}$ = matrix of all activations of our 0th layer (784 x $m$)
@@ -32,10 +32,10 @@
   - $W^{[1]}$ = 10 x 784 matrix
     - 10 rows $\rightarrow$ each row consists of the weights of all of the connections between the 0th layer and a particular neuron in the 1st layer
     - 784 columns $\rightarrow$ each neuron in the 1st layer has 784 incoming weights
-    - These weights are shared (stays the same) across all different input images
+    - These weights are shared across all different input images
   - $b^{[1]}$ = 10 x 1 vector
     - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron
-    - This bias is shared (stays the same) across all different input images
+    - This bias is shared across all different input images
 - Let $A^{[1]}$ = matrix of all activations of our 1st layer (10 x $m$)
   - 10 rows $\rightarrow$ one activation per neuron
   - $m$ columns $\rightarrow$ one per input image
