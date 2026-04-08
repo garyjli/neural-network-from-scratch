@@ -3,30 +3,44 @@
 ## General Notes:
 - Images are from the MNIST database
 - Each image is 784 pixels (28 x 28)
-- Each (grayscale) pixel is just a value between 0-255 inclusive (0 = black, 255 = white)
-- We can represent $m$ images (each 784 pixels) as one matrix:
-  - Each row is 784 columns long
-  - Each row represents the pixel values of one image
+- Each (grayscale) pixel of an image is just a value between 0-255 inclusive (0 = black, 255 = white)
+- We can represent $m$ images (each 784 pixels) as a single matrix:
+  - $m$ rows, 784 columns
+  - So each row represents all 784 pixel values of one image
 - Take the transpose of this matrix:
   - Now each column represents the pixel values of one image
+- Node/neuron: Holds a numerical value (in this case a grayscale value)
+  - This value is called the neuron's "activation"
 
-## Terminology:
-- Node = neuron = holds a numerical value (in this case a grayscale value)
-- This value is called the neuron's "activation"
-
-## NN Structure:
+## Our NN Structure:
 - 2 layers total
 - (0th) Input layer: 784 nodes (each pixel maps to a node)
 - (1st) Hidden layer: 10 nodes
-- (2nd) Output layer: 10 nodes (each corresponding to a number 0-9)
+- (2nd) Output layer: 10 nodes (corresponds to numbers 0-9)
+- Each neuron in a successive layer is "connected" to all neurons in the previous layer
+  - In other words, every neuron in layer $L$ receives input from every neuron in layer $L - 1$
+  - Thus each neuron has one weight per input neuron and one bias
+- Example: The activation of a node in layer 1 is calculated by applying a (nonlinear) activation function to a linear combination of weights $\times$ activation values (plus a bias value) from layer 0
+  - Something like: $g(w_{1}a_{1} + w_{2}a_{2} + \cdots + w_{n}a_{n} + b)$
 
-## Math + Training:
-- Let $A^{[0]}$ = Input layer matrix (784 x $m$)
-- Let $Z^{[1]}$ = Hidden layer matrix (10 x $m$)
-- Then: $Z^{[1]} = w^{[1]} A^{[0]} + b^{[1]}$
-  - $w^{[1]}$ = 10 x 784 matrix
-  - $b^{[1]}$ = 10 x 1 matrix
-- Let $A^{[1]}$ = Output layer matrix
-- Apply an activation function (like tanh, sigmoid) to $Z^{[1]}$
-  - Then: $A^{[1]} = g(Z^{[1]}) = ReLU(Z^{[1]})$
+## Math:
+- Let $A^{[0]}$ = matrix of all activations of our 0th layer (784 x $m$)
+  - 784 rows $\rightarrow$ one per pixel
+  - $m$ columns $\rightarrow$ one per input image
+- Let $Z^{[1]}$ = matrix of all "pre-activations" of our 1st layer (10 x $m$)
+- Specifically: $Z^{[1]} = W^{[1]} A^{[0]} + b^{[1]}$
+  - $W^{[1]}$ = 10 x 784 matrix
+    - 10 rows $\rightarrow$ each row consists of the weights of all of the connections between the 0th layer and a particular neuron in the 1st layer
+    - 784 columns $\rightarrow$ each neuron in the 1st layer has 784 incoming weights
+    - These weights are shared (stays the same) across all different input images
+  - $b^{[1]}$ = 10 x 1 vector
+    - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron
+    - This bias is shared (stays the same) across all different input images
+- Let $A^{[1]}$ = matrix of all activations of our 1st layer (10 x $m$)
+  - 10 rows $\rightarrow$ one activation per neuron
+  - $m$ columns $\rightarrow$ one per input image
+  - This matrix is achieved by applying an activation function (e.g. tanh, sigmoid, ReLU) to $Z^{[1]}$
+    - $A^{[1]} = g(Z^{[1]})$
+
+## Training:
 - Forward propagation: Take image, run through network, compute output
