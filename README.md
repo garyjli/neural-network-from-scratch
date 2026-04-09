@@ -41,7 +41,7 @@
   - $m$ columns $\rightarrow$ one per input image
   - This matrix is achieved by applying an activation function (e.g. tanh, sigmoid, ReLU) to $Z^{[1]}$
     - $A^{[1]} = g(Z^{[1]})$
-- Let $Z^{[2]}$ = matrix of all "pre-activations" of our 2nd layer (10 x $m$)
+- Let $Z^{[2]}$ = matrix of all "pre-activations" (logits) of our 2nd layer (10 x $m$)
 - Specifically: $Z^{[2]} = W^{[2]} A^{[1]} + b^{[2]}$
   - $W^{[2]}$ = 10 x 10 matrix
     - 10 rows $\rightarrow$ each row consists of 10 weights of all the connections between the 1st layer and a particular neuron in the 2nd layer
@@ -52,6 +52,12 @@
   - $m$ columns $\rightarrow$ one distribution per input image
   - This matrix is achieved by applying a softmax function to $Z^{[2]}$
     - $A^{[2]} = $ softmax $(Z^{[2]})$
+- Softmax function:
+  - For a vector $z = (z_1, z_2, \ldots, z_n)$:
+    - softmax $(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$
+  - In words, softmax takes the exponential of each neuron's logit and divides it by the sum of exponentials of all logits
+  - Produces a value between 0 and 1 for each neuron, where these values form a probability distribution that sums to 1
 
 ## Training:
 - Forward propagation: Take image, run through network, compute output
+- Back propagation: Start with a prediction, find out how much prediction deviated by the actual label (error), observe how each weight contributed to this error, adjust accordingly
