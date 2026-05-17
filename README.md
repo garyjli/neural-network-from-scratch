@@ -51,7 +51,7 @@
   - 10 rows $\rightarrow$ one probability per each of our 10 classes (digits 0-9)
   - $m$ columns $\rightarrow$ one distribution per input image
   - This matrix is achieved by applying a softmax function to $Z^{[2]}$
-    - $A^{[2]} = $ softmax $(Z^{[2]})$
+    - $A^{[2]} =$ softmax $(Z^{[2]})$
 - Softmax function:
   - For a vector $z = (z_1, z_2, \ldots, z_n)$:
     - $\mathrm{softmax}(z)\_i = \frac{e^{z\_i}}{\sum_{j=1}^{n} e^{z_j}}$
