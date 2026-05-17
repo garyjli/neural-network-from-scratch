@@ -51,10 +51,10 @@
   - 10 rows $\rightarrow$ one probability per each of our 10 classes (digits 0-9)
   - $m$ columns $\rightarrow$ one distribution per input image
   - This matrix is achieved by applying a softmax function to $Z^{[2]}$
-    - $A^{[2]} = \operatorname{softmax}(Z^{[2]})$
+    - $A^{[2]} = \mathrm{softmax}(Z^{[2]})$
 - Softmax function:
   - For a vector $z = (z_1, z_2, \ldots, z_n)$:
-    - $\operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$
+    - $\mathrm{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$
   - In words, softmax takes the exponential of each neuron's logit and divides it by the sum of exponentials of all logits
   - Produces a value between 0 and 1 for each neuron, where these values form a probability distribution that sums to 1
 
