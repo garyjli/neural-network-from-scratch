@@ -18,9 +18,9 @@ In this project, I build a neural network with numpy that aims to classify digit
 
 
 ## Our NN Structure:
-- (0th) Input layer: 784 nodes (each pixel maps to a node)
-- (1st) Hidden layer: 10 nodes
-- (2nd) Output layer: 10 nodes (corresponds to numbers 0-9)
+- 0th layer (input): 784 nodes (each pixel maps to a node)
+- 1st layer (hidden): 10 nodes
+- 2nd layer (output): 10 nodes (corresponds to numbers 0-9)
 - Each neuron in a successive layer is "connected" to all neurons in the previous layer
   - In other words, each neuron in layer $L$ receives input from all neurons in layer $L - 1$
   - Each connection has a weight associated with it
@@ -37,46 +37,53 @@ In this project, I build a neural network with numpy that aims to classify digit
     - ${a_j}^{[1]} = \mathrm{ReLU}({w_{j1}}^{[1]}{a_1}^{[0]} + {w_{j2}}^{[1]}{a_2}^{[0]} + \cdots + {w_{jn}}^{[1]}{a_n}^{[0]} + {b_j}^{[1]})$
   - If we treat this as a matrix operation for all nodes in the 1st layer, then:
     - $A^{[1]} = \mathrm{ReLU}(W^{[1]}A^{[0]} + b^{[1]})$
-- Similarly, for the nodes going from our 1st layer to our 2nd layer, we'll apply the same rule, but we'll use a softmax function instead:
-  - $A^{[2]} = \mathrm{softmax}(W^{[2]}A^{[1]} + b^{[2]})$
+- Similarly, for the nodes going from our 1st layer to our 2nd layer:
+  - We will apply the same operation as before, but we'll use a softmax function instead:
+    - $A^{[2]} = \mathrm{softmax}(W^{[2]}A^{[1]} + b^{[2]})$
+- More on how to compute this later
 
 
 ## Training Overview:
 - 3 parts
   - Forward propagation:
     - Take an image, run it through the network, and see what the model outputs
+    - Compute loss
+  - Backpropagation:
+    - Compute gradients $dW$ and $db$, which tell us how each weight and bias should change to reduce loss
+  - Update parameters:
+    - Use gradients and a learning rate to update our weights and biases
 
 
 ## Math:
-- Define $A^{[0]}$ to be a matrix of all activations of our input layer (784 x $m$)
+- Let $A^{[0]}$ be a matrix (784 x $m$) of all activation values from our 0th layer
   - 784 rows $\rightarrow$ one per pixel
   - $m$ columns $\rightarrow$ one per input image
-- We now want to compute: $Z^{[1]} = W^{[1]} A^{[0]} + b^{[1]}$
-  - $Z^{[1]}$ = matrix of all "pre-activations" of our 1st layer (10 x $m$)
-  - $W^{[1]}$ = 10 x 784 matrix
-    - 10 rows $\rightarrow$ each row consists of 784 weights of all the connections between the 0th layer and a particular neuron in the 1st layer
-    - These weights are shared across all different input images
-  - $b^{[1]}$ = 10 x 1 vector
-    - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron in the 1st layer
-    - This bias is shared across all different input images
-- Let $A^{[1]}$ = matrix of all activations of our 1st layer (10 x $m$)
-  - 10 rows $\rightarrow$ one activation per neuron
-  - $m$ columns $\rightarrow$ one per input image
-  - This matrix is achieved by applying an activation function (e.g. tanh, sigmoid, ReLU) to $Z^{[1]}$
-    - $A^{[1]} = g(Z^{[1]})$
-- Let $Z^{[2]}$ = matrix of all "pre-activations" (logits) of our 2nd layer (10 x $m$)
-- Specifically: $Z^{[2]} = W^{[2]} A^{[1]} + b^{[2]}$
-  - $W^{[2]}$ = 10 x 10 matrix
-    - 10 rows $\rightarrow$ each row consists of 10 weights of all the connections between the 1st layer and a particular neuron in the 2nd layer
-  - $b^{[2]}$ = 10 x 1 vector
-    - 10 rows $\rightarrow$ each entry corresponds to the bias of a particular neuron in the 2nd layer
-- Let $A^{[2]}$ = matrix of probability distributions (10 x $m$)
-  - 10 rows $\rightarrow$ one probability per each of our 10 classes (digits 0-9)
-  - $m$ columns $\rightarrow$ one distribution per input image
-  - This matrix is achieved by applying a softmax function to $Z^{[2]}$
-    - $A^{[2]}$ = softmax $(Z^{[2]})$
+- We now compute: $Z^{[1]} = W^{[1]} A^{[0]} + b^{[1]}$
+  - $Z^{[1]}$ is a matrix (10 x $m$) of all "pre-activation" values of our 1st layer
+    - This matrix is 10 x $m$ since we have 10 neurons in our 1st layer
+  - $W^{[1]}$ is a matrix (10 x 784) of all the weights of the connections from our 0th layer to our 1st layer
+    - 10 rows $\rightarrow$ each row consists of 784 weights of all the connections between neurons in the 0th layer and a particular neuron in the 1st layer
+    - Note: These weights are shared across all different input images
+  - $b^{[1]}$ is a vector (10 x 1) of the bias values of each neuron in our 1st layer
+    - 10 rows $\rightarrow$ each row element is the bias of a neuron in the 1st layer
+    - Note: This bias is shared across all different input images
+- Let $A^{[1]} = \mathrm{ReLU}(Z^{[1]})$
+  - $A^{[1]}$ is a matrix (10 x $m$) of all activation values from our 1st layer
+    - 10 rows $\rightarrow$ one activation per neuron
+    - $m$ columns $\rightarrow$ one per input image
+- We now compute: $Z^{[2]} = W^{[2]} A^{[1]} + b^{[2]}$
+  - $Z^{[2]}$ is a matrix (10 x $m$) of all "pre-activation" values of our 2nd layer
+    - This matrix is 10 x $m$ since we have 10 neurons in our 2nd layer
+  - $W^{[2]}$ is a matrix (10 x 10) of all the weights of the connections from our 1st layer to our 2nd layer
+    - 10 rows $\rightarrow$ each row consists of 10 weights of all the connections between neurons in the 1st layer and a particular neuron in the 2nd layer
+  - $b^{[2]}$ is a vector (10 x 1) of the bias values of each neuron in our 2nd layer
+    - 10 rows $\rightarrow$ each row element is the bias of a neuron in the 2nd layer
+- Let $A^{[2]} = \mathrm{softmax}(Z^{[2]})$
+  - $A^{[2]}$ is a matrix (10 x $m$) of our probability distributions
+    - 10 rows $\rightarrow$ one probability for each of our 10 classes (digits 0-9)
+    - $m$ columns $\rightarrow$ one distribution per input image
 - Softmax function:
   - For a vector $z = (z_1, z_2, \ldots, z_n)$:
     - softmax $(z)\_i$ = $\frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$
-  - In words, softmax takes the exponential of each neuron's logit and divides it by the sum of exponentials of all logits
+  - In words, softmax takes the exponential of each neuron's logit (pre-activation value) and divides it by the sum of exponentials of all logits
   - Produces a value between 0 and 1 for each neuron, where these values form a probability distribution that sums to 1
