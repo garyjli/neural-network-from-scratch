@@ -84,6 +84,6 @@ In this repo, I implement a neural network from scratch using numpy to classify 
     - $m$ columns $\rightarrow$ one distribution per input image
 - Softmax function:
   - For a vector $z = (z_1, z_2, \ldots, z_n)$:
-    - $\mathrm{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$
+    - $\mathrm{softmax}(z)_i$ = $\frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}$
   - In words, softmax takes the exponential of each neuron's logit (pre-activation value) and divides it by the sum of exponentials of all logits
   - Produces a value between 0 and 1 for each neuron, where these values form a probability distribution that sums to 1
